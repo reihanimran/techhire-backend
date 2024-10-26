@@ -1,9 +1,10 @@
 import JobApplication from "../infrastructure/schemas/JobApplication";
 import OpenAI from "openai";
+import { ObjectId } from 'mongodb';
 
 const client = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
-export async function generateratings(jobApplicationId: string) {
+export async function generateratings(jobApplicationId: ObjectId) {
     const jobApplication = await JobApplication.findById(jobApplicationId).populate<{ job: { title: string; answers: string[] } }>("job");
 
     const content = `Role:${
