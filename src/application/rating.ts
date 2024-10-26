@@ -3,7 +3,7 @@ import OpenAI from "openai";
 
 const client = new OpenAI({apiKey: process.env.OPENAI_API_KEY});
 
-export async function generateratings(jobApplicationId) {
+export async function generateratings(jobApplicationId: string) {
     const jobApplication = await JobApplication.findById(jobApplicationId).populate<{ job: { title: string; answers: string[] } }>("job");
 
     const content = `Role:${
