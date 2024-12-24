@@ -9,14 +9,20 @@ import companyRouter from "./api/company";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// Configure CORS explicitly
+app.use(cors({
+  origin: 'https://techhire-reihanimran.netlify.app', // Replace with your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 
 connectDB();
 
-
 app.use("/jobs", jobsRouter);
 app.use("/jobApplications", jobApplicationRouter);
-app.use("/company", companyRouter)
+app.use("/company", companyRouter);
 
 app.use(GlobalErrorHandlingMiddleware);
 
